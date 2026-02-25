@@ -166,6 +166,20 @@ filename,count,total,grp
 | 13.jpg | 2 | 2 | 3,00 € | 3,00 € | ✅ |
 | 14.jpg | 4 | 4 | 7,00 € | 7,00 € | ✅ |
 
+
+### Évaluation sur dataset étendu (106 images)
+
+Les paramètres ont été calibrés sur le dataset de 14 images. Une évaluation sur un dataset externe de 106 images révèle une généralisation limitée :
+
+| Métrique | Valeur |
+|---|---|
+| Accuracy du comptage | 40,6 % (43/106) |
+| Accuracy du montant total | 4,7 % (5/106) |
+| MAE nombre de pièces | 6,39 |
+| MAE montant total | 4,10 € |
+
+Les erreurs proviennent principalement de deux sources : les seuils HSV (`bimetal_dH`, `copper_H_max`) fixés sur le dataset initial ne se généralisent pas à des conditions d'éclairage variées, et les paramètres Hough (`param2`, `min_r_ratio`) nécessitent une recalibration selon la résolution et la distance de prise de vue. Une piste d'amélioration consiste à effectuer une recherche par grille sur les paramètres Hough, puis un réajustement des seuils HSV à partir des erreurs de classification observées.
+
 ---
 
 ## Paramètres
